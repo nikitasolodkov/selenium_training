@@ -13,9 +13,6 @@ def driver(request):
     request.addfinalizer(wd.quit)
     return wd
 
-
-
-
 def is_element_present(driver, *args):
   try:
     driver.find_element(*args)
@@ -23,13 +20,16 @@ def is_element_present(driver, *args):
   except NoSuchElementException:
     return False
 
-
 # ЗАДАНИЕ 07 СТИКЕРЫ НА УТОЧКАХ
 
-def test_products_stickers(driver):
-    driver.get("http://localhost/litecart/")
 
+def test_products_stickers(driver):
+
+    driver.get("http://localhost/litecart/")
     products = driver.find_elements(By.CSS_SELECTOR, '.product')
+
     for product in products:
-        assert(is_element_present(product, By.CSS_SELECTOR, ".sticker"))
+        stickers = product.find_elements(By.CSS_SELECTOR, '.sticker')
+        # Ровно один! Как и договаривались :)
+        assert(len(stickers) == 1)
 
