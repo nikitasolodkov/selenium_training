@@ -25,14 +25,14 @@ def is_element_present(driver, *args):
 
 # ЗАДАНИЕ 08 СТРАНЫ В АЛФАВИТНОМ ПОРЯДКЕ
 
-def test_ordered_countries(driver):
+# а) проверяет, что страны расположены в алфавитном порядке
+def test_ordered_countries_a(driver):
+
     driver.get("http://localhost/litecart/admin/?app=countries&doc=countries")
     driver.find_element(By.NAME, 'username').send_keys('admin')
     driver.find_element(By.NAME, 'password').send_keys('admin')
     driver.find_element(By.NAME, 'login').click()
     WebDriverWait(driver, 10).until(EC.title_contains('My Store'))
-
-# а) проверяет, что страны расположены в алфавитном порядке
 
     countries = driver.find_elements(By.CSS_SELECTOR, 'table.dataTable tr.row a:not([title])')
     original_list = []
@@ -43,8 +43,44 @@ def test_ordered_countries(driver):
     ordered_list.sort(reverse=False)
     assert (ordered_list == original_list)
 
+
+
 # б) для тех стран, у которых количество зон отлично от нуля --
 # открывает страницу этой страны и там проверяет, что геозоны расположены в алфавитном порядке
+def test_ordered_countries_b(driver):
+        driver.get("http://localhost/litecart/admin/?app=countries&doc=countries")
+        driver.find_element(By.NAME, 'username').send_keys('admin')
+        driver.find_element(By.NAME, 'password').send_keys('admin')
+        driver.find_element(By.NAME, 'login').click()
+        WebDriverWait(driver, 10).until(EC.title_contains('My Store'))
+
+        rows = driver.find_elements(By.CSS_SELECTOR, 'table.dataTable tr.row')
+
+        for n in range(0, len(rows)):
+            rows = driver.find_elements(By.CSS_SELECTOR, 'table.dataTable tr.row')
+            country = rows[n].find_element(By.CSS_SELECTOR, 'a:not([title])')
+            zone = rows[n].find_element(By.CSS_SELECTOR, 'td:nth-child(6n)')
+
+            if zone.get_property('textContent') != '0':
+                country.click()
+
+
+                zones = driver.find_elements(By.XPATH, '//input[starts-with(@name, "zones[") and contains(@name, "][name]")]')
+                original_list = []
+                for z in zones:
+                    original_list.append(z.get_property('value'))
+
+                ordered_list = original_list.copy()
+                ordered_list.sort(reverse=False)
+                assert (ordered_list == original_list)
+
+                driver.find_element(By.NAME, 'cancel').click()
+
+
+
+
+
+
 
 
 
