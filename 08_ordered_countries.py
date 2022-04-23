@@ -75,12 +75,3 @@ def test_ordered_countries_b(driver):
                 assert (ordered_list == original_list)
 
                 driver.find_element(By.NAME, 'cancel').click()
-
-
-
-
-
-
-
-
-
