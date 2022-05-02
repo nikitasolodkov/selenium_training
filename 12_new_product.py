@@ -44,8 +44,20 @@ def test_new_product(driver):
     driver.find_element(By.CSS_SELECTOR, 'a[href = "#tab-general"]').click()
 
     driver.find_element(By.XPATH, '// label[text() = " Enabled"]').click()
-    driver.find_element(By.NAME, 'name[en]').send_keys('DarkWing Duck')
+
+# ------------------------------------------------ ИСПРАВЛЕНИЕ, РЕШИЛ ИСПОЛЬЗОВАТЬ УНИКАЛЬНОСТЬ ------------------------------------------------------------------
+
+    r_number = random.randint(1000000000, 9999999999)
+    dark_duck_name = 'DD' + str(r_number)
+
+    driver.find_element(By.NAME, 'name[en]').send_keys(dark_duck_name)
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
     driver.find_element(By.NAME, 'code').send_keys('740')
+
 
     driver.find_element(By.CSS_SELECTOR, 'input[data-name = "Root"]').click()
     driver.find_element(By.CSS_SELECTOR, 'input[data-name = "Rubber Ducks"]').click()
@@ -120,5 +132,9 @@ def test_new_product(driver):
 
 
 # ПРОВЕРКА НАЛИЧИЯ ЧЁРНОЙ УТОЧКИ
-    assert (is_element_present(driver, By.XPATH, '//a[text() = \'DarkWing Duck\']'))
 
+    # ------------------------------------------------ ИСПРАВЛЕНИЕ ------------------------------------------------------------------
+
+    assert (is_element_present(driver, By.XPATH, '//a[text() = ' + dark_duck_name + ' ]'))
+
+    # ------------------------------------------------ ИСПРАВЛЕНИЕ ------------------------------------------------------------------
