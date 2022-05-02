@@ -68,7 +68,7 @@ def properties_checks(duck, product_name, product_r_price, product_c_price):
         campaign_font_size = duck.find_element(By.CSS_SELECTOR, '.campaign-price').value_of_css_property("font-size")
 
 
-# ------------------------------------------------ ИСПРАВЛЕНИЕ ПОСЛЕ ПОПЫТКИ 01 --------------------------------------------------------------------------------------
+# ------------------------------------------------ ИСПРАВЛЕНИЕ ПОСЛЕ ПОПЫТКИ 01 FF --------------------------------------------------------------------------------------
 
         regular_font_size = float(regular_font_size.replace('px', ''))
         campaign_font_size = float(campaign_font_size.replace('px', ''))
