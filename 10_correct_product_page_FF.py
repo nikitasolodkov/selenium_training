@@ -66,8 +66,15 @@ def properties_checks(duck, product_name, product_r_price, product_c_price):
         # д) акционная цена крупнее, чем обычная
         regular_font_size = duck.find_element(By.CSS_SELECTOR, '.regular-price').value_of_css_property("font-size")
         campaign_font_size = duck.find_element(By.CSS_SELECTOR, '.campaign-price').value_of_css_property("font-size")
-        assert (campaign_font_size > regular_font_size)
 
+
+# ------------------------------------------------ ИСПРАВЛЕНИЕ ПОСЛЕ ПОПЫТКИ 01 --------------------------------------------------------------------------------------
+
+        regular_font_size = float(regular_font_size.replace('px', ''))
+        campaign_font_size = float(campaign_font_size.replace('px', ''))
+
+        assert (campaign_font_size > regular_font_size)
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def test_correct_page(driver):
         driver.get("http://localhost/litecart/en/")
