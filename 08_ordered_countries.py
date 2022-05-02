@@ -65,10 +65,11 @@ def test_ordered_countries_b(driver):
                 country.click()
 
 
-                zones = driver.find_elements(By.XPATH, '//input[starts-with(@name, "zones[") and contains(@name, "][name]")]')
+                zones = driver.find_elements(By.XPATH, '//table[@id="table-zones"]//tbody//td[3]')
                 original_list = []
                 for z in zones:
-                    original_list.append(z.get_property('value'))
+                    if z.get_property('innerText') != '':
+                        original_list.append(z.get_property('innerText'))
 
                 ordered_list = original_list.copy()
                 ordered_list.sort(reverse=False)
